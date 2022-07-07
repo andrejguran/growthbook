@@ -565,9 +565,9 @@ export default class Mixpanel implements SourceIntegrationInterface {
     const experimentIdCol = getMixpanelPropertyColumn(
       this.settings.events?.experimentIdProperty || "Experiment name"
     );
-    let timeCheck = `event.time >= ${start.getTime()}`;
+    let timeCheck = `event.time >= ${Math.floor(start.getTime()/1000)}`;
     if (end) {
-      timeCheck += ` && event.time <= ${end.getTime()}`;
+      timeCheck += ` && event.time <= ${Math.floor(end.getTime()/1000)}`;
     }
     return `event.name === "${experimentEvent}" && ${experimentIdCol} === "${id}" && ${timeCheck}`;
   }
